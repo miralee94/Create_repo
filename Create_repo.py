@@ -1,33 +1,36 @@
 import argparse
-from github import Github
+from github import Github, GithubException
 
 
+#Parses command-line arguments
 def parse_args():
-    """Parses command-line arguments."""
     parser = argparse.ArgumentParser(description='Create a new private repository on GitHub')
     parser.add_argument('repo', type=str, help='Name of the new repository')
     parser.add_argument('--label', type=str, default=None, help='Name of the team to set as a label')
     return parser.parse_args()
 
 
+#Reads GitHub access token from a config file
 def get_github_token():
-    """Reads GitHub access token from a config file."""
     with open('config.txt', 'r') as f:
         token = f.read().strip()
     return token
 
 
+#Creates a new private repository on GitHub.
 def create_github_repository(token, repo_name):
-    """Creates a new private repository on GitHub."""
     # Create PyGithub object using the access token
     g = Github(token)
 
     # Get the authenticated user
     user = g.get_user()
-
-    # Create the new repository
-    repo = user.create_repo(repo_name, private=True)
-    return repo
+    try:
+        # Create the new repository
+        repo = user.create_repo(repo_name, private=True)
+        print(f'Repository {repo_name} created successfully.')
+        return repo
+    except GithubException as e:
+        print(f'Error creating repository: {e}')
 
 
 #def add_team_label_to_repository(token, repo_name, team_name):
@@ -70,6 +73,7 @@ def main():
     # Add the specified team as a label for the repository
     if args.label:
         create_issue_label(token, args.repo, args.label)
+        print(f"Label created with team name {args.label}")
 
 
 if __name__ == '__main__':
