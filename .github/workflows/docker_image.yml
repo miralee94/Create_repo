@@ -29,9 +29,9 @@ jobs:
         export DOCKER_BUILDKIT=1
         docker build \
           --file ./Dockerfile \
-          --tag ghcr.io/miralee94/test_script:latest .
+          --tag ghcr.io/miralee94/create_repo:latest .
 
     - name: Push Docker Image
-      run: docker image push --all-tags ghcr.io/miralee94/test_script
+      run: docker image push --all-tags ghcr.io/miralee94/create_repo
 
 
