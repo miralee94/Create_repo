@@ -12,7 +12,7 @@ RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy script into the container
-COPY src/create_repo.py .
+COPY ./src .
 
 # Set the entrypoint to file
-ENTRYPOINT ["python", "src/create_repo.py"]
+ENTRYPOINT ["python", "create_repo.py"]
