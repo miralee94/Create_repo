@@ -12,8 +12,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+
     steps:
-    - name: Checkout
+    - name: Checkout # hämta repo
       uses: actions/checkout@v3
 
     - name: Login to Github Container Registry
@@ -31,6 +32,6 @@ jobs:
           --tag ghcr.io/miralee94/create_repo:latest .
 
     - name: Push Docker Image
-      run: docker image push --all-tags ghcr.io/miralee94/Test_script
+      run: docker image push --all-tags ghcr.io/miralee94/test_script
 
 
