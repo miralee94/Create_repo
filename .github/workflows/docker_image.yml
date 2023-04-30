@@ -1,0 +1,36 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout # hämta repo
+      uses: actions/checkout@v3
+
+    - name: Login to Github Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: miralee94
+        password: ${{ secrets.SECRET_GITHUB }}
+
+    - name: Build & Tag Docker Image
+      run: |
+        export DOCKER_BUILDKIT=1
+        docker build \
+          --file ./docker/Dockerfile \
+          --tag ghcr.io/miralee94/create_repo:latest .
+
+    - name: Push Docker Image
+      run: docker image push --all-tags ghcr.io/miralee94/create_repo
+
+
