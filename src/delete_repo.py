@@ -8,7 +8,7 @@ def delete_repo(repo, token):
 
 
 def main():
-    u=utils
+    u = utils
     args = u.parse_args()
     token = u.get_github_token()
     delete_repo(args.repo, token)
