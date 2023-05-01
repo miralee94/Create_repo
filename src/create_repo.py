@@ -16,7 +16,7 @@ def create_github_repository(g, repo_name):
         print(f'Error creating repository: {e}')
 
 # Creates a label
-def create_issue_label(g, repo, label_name, color=None):
+def create_issue_label(g, repo, label_name, color="FFC0CB"):
     colors = {
     "red": "FF0000",
     "green": "00FF00",
@@ -24,9 +24,8 @@ def create_issue_label(g, repo, label_name, color=None):
     "white": "FFFFFF",
     "black": "000000"
 }
-    if color is None:
-        color = "FFCOCB" # Default color
-    elif color.lower() in colors:
+
+    if color.lower() in colors:
         color = colors[color].lower()
     label = g.get_user().get_repo(repo).create_label(label_name, color)
     return label
