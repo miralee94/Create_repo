@@ -8,9 +8,11 @@ Download container
 ```
 docker pull ghcr.io/miralee94/create_repo:latest
 ```
-After pulling the image, run container to create a repo with a custom issue label. Replace ```<repo>``` with name you want to give to your new repository and ```<label>``` with a team name.
+After pulling the image, run container to create a repo with a custom issue label. Replace ```<repo>``` with name you want to give to your new repository and ```<label>``` with a team name. You can also choose the color of the label.
+
+Only repo argument is mandatory
 ```
-docker run -v C:\my\path\config.txt:/app/config.txt ghcr.io/miralee94/create_repo:latest <repo> --label <label>
+docker run -v C:\my\path\config.txt:/app/config.txt ghcr.io/miralee94/create_repo:latest <repo> --label <label> --color <red/blue/green/black/white>
 ```
 
 

@@ -16,26 +16,39 @@ def create_github_repository(g, repo_name):
         print(f'Error creating repository: {e}')
 
 # Creates a label
-def create_issue_label(g, repo, label_name, color="FFC0CB"):
+def create_issue_label(g, repo, label_name, color):
+    try:
+        label = g.get_user().get_repo(repo).create_label(label_name, color)
+        return label
+    except GithubException as e:
+        print(f'Error color: {e}')
+
+
+def validate_color(color="pink"):
     colors = {
     "red": "FF0000",
     "green": "00FF00",
     "blue": "0000FF",
     "white": "FFFFFF",
-    "black": "000000"
-}
+    "black": "000000",
+    "pink": "FFC0CB"
+    }
 
     if color.lower() in colors:
         color = colors[color].lower()
-    label = g.get_user().get_repo(repo).create_label(label_name, color)
-    return label
-
+        return color
+    else:
+        print(f"Invalid choice: {color}")
+        print("Available colors:")
+        for c in colors:
+            print(c)
+        exit()
 
 def main():
     u = utils
     # Parse command-line arguments
     args = u.parse_args()
-
+    color = validate_color(args.color)
     # Get GitHub access token from a config file
     token = u.get_github_token()
     g = Github(token)
@@ -45,7 +58,7 @@ def main():
     # Add the specified team as a label for the repository
     if args.label:
         if args.color:
-            create_issue_label(g, args.repo, args.label, args.color)
+            create_issue_label(g, args.repo, args.label, color)
             print(f"Label created with team name {args.label} and color {args.color}")
         if args.color is None:
             create_issue_label(g, args.repo, args.label)
