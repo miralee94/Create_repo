@@ -5,6 +5,7 @@ import utils
 def delete_repo(repo, token):
     g = Github(token)
     g.get_user().get_repo(repo).delete()
+    return f"Repo {repo} deleted"
 
 
 def main():

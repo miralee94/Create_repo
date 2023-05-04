@@ -3,7 +3,7 @@ import utils
 
 
 # Creates a new private repository on GitHub.
-def create_github_repository(g, repo_name):
+def create_github_repository(g: Github, repo_name):
 
     # Get the authenticated user
     user = g.get_user()
@@ -11,7 +11,7 @@ def create_github_repository(g, repo_name):
         # Create the new repository
         repo = user.create_repo(repo_name, private=True)
         print(f'Repository {repo_name} created successfully.')
-        return repo
+        return repo.name
     except GithubException as e:
         print(f'Error creating repository: {e}')
         exit()
