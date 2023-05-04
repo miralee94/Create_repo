@@ -2,7 +2,7 @@ from github import Github
 import utils
 
 # Delete created repository
-def delete_repo(repo, token):
+def delete_repo(repo: str, token: str):
     g = Github(token)
     g.get_user().get_repo(repo).delete()
 

@@ -3,21 +3,21 @@ import utils
 
 
 # Creates a new private repository on GitHub.
-def create_github_repository(g, repo_name):
+def create_github_repository(g: Github, repo: str):
 
     # Get the authenticated user
     user = g.get_user()
     try:
         # Create the new repository
-        repo = user.create_repo(repo_name, private=True)
-        print(f'Repository {repo_name} created successfully.')
-        return repo
+        repository = user.create_repo(repo, private=True)
+        print(f'Repository {repo} created successfully.')
+        return repository
     except GithubException as e:
         print(f'Error creating repository: {e}')
         exit()
 
 # Creates a label
-def create_issue_label(g, repo, label_name, color):
+def create_issue_label(g: Github, repo: str, label_name: str, color: str):
     try:
         label = g.get_user().get_repo(repo).create_label(label_name, color)
         return label
@@ -26,7 +26,7 @@ def create_issue_label(g, repo, label_name, color):
         exit()
 
 # Validare color input
-def validate_color(color):
+def validate_color(color: str):
     colors = {
     "red": "FF0000",
     "green": "00FF00",
