@@ -36,7 +36,7 @@ def validate_color(color: str):
     "pink": "FFC0CB"
     }
     if color.lower() in colors:
-        color = colors[color].lower()
+        color = colors[color]
         return color
     else:
         print(f"Invalid choice: {color}")
