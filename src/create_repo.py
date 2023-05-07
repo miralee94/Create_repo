@@ -68,8 +68,10 @@ def main():
     if args.label:
         create_issue_label(g, args.repo, args.label, color)
         print(f"Label created with team name {args.label} and color {args.color}")
-    if args.repo and args.color and args.label is None:
-        print(f"Color {args.color} cannot be applied without a label")
+    elif args.repo and args.color:
+        if args.color != "pink" and args.label is None:
+            print(f"Color {args.color} cannot be applied without a label")
+
 
 if __name__ == '__main__':
     main()
